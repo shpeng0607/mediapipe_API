@@ -84,7 +84,7 @@ class Feeder_mediapipe(torch.utils.data.Dataset):
         self.N = len(self.sample_name)  #sample
         self.C = 3  #channel
         self.T = 300  #frame
-        self.V = 21  #joint
+        self.V = 22  #joint
         self.M = self.num_hand_out  #hand
 
     def __len__(self):

@@ -23,7 +23,7 @@ def print_toolbar(rate, annotation=''):
 def end_toolbar():
     sys.stdout.write("\n")
 
-def gendata(data_path, label_path, data_out_path, label_out_path, num_hand_in=1, num_hand_out=1, max_frame=300):
+def gendata(data_path, label_path, data_out_path, label_out_path, num_hand_in=2, num_hand_out=2, max_frame=300):
     feeder = Feeder_mediapipe(
         data_path=data_path,
         label_path=label_path,
@@ -38,7 +38,7 @@ def gendata(data_path, label_path, data_out_path, label_out_path, num_hand_in=1,
         data_out_path,
         dtype='float32',
         mode='w+',
-        shape=(len(sample_name), 3, max_frame, 21, num_hand_out))
+        shape=(len(sample_name), 3, max_frame, 22, num_hand_out))
 
     for i, s in enumerate(sample_name):
         data, label = feeder[i]
@@ -52,8 +52,14 @@ def gendata(data_path, label_path, data_out_path, label_out_path, num_hand_in=1,
 if __name__ == '__main__':
     part = ['train', 'val']
     for p in part:
-        data_path = '{}/mediapipe_{}'.format('JSON_data', p)
-        label_path = '{}/mediapipe_{}_label.json'.format('JSON_data', p)
+        data_path = '{}/SHREC_{}'.format('JSON_data', p)
+        label_path = '{}/SHREC_{}_label.json'.format('JSON_data', p)
         data_out_path = '{}/{}_data.npy'.format('output_dataset', p)
         label_out_path = '{}/{}_label.pkl'.format('output_dataset', p)
         gendata(data_path, label_path, data_out_path, label_out_path)
+    # for p in part:
+    #     data_path = '{}/mediapipe_{}'.format('JSON_data', p)
+    #     label_path = '{}/mediapipe_{}_label.json'.format('JSON_data', p)
+    #     data_out_path = '{}/{}_data.npy'.format('output_dataset', p)
+    #     label_out_path = '{}/{}_label.pkl'.format('output_dataset', p)
+    #     gendata(data_path, label_path, data_out_path, label_out_path)
