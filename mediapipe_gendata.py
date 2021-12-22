@@ -50,13 +50,22 @@ def gendata(data_path, label_path, data_out_path, label_out_path, num_hand_in=2,
         pickle.dump((sample_name, list(sample_label)), f)
 
 if __name__ == '__main__':
+    version = ['coarse', 'fine']
     part = ['train', 'val']
-    for p in part:
-        data_path = '{}/SHREC_{}'.format('JSON_data', p)
-        label_path = '{}/SHREC_{}_label.json'.format('JSON_data', p)
-        data_out_path = '{}/{}_data.npy'.format('output_dataset', p)
-        label_out_path = '{}/{}_label.pkl'.format('output_dataset', p)
-        gendata(data_path, label_path, data_out_path, label_out_path)
+    for i in range(1, 21):
+        for v in version:
+            for p in part:
+                data_path = '{}/DHG2016_{}/{}/{}'.format('JSON_data', str(i), v, p)
+                label_path = '{}/DHG2016_{}/{}/DHG2016_{}_{}_label.json'.format('JSON_data', str(i), v, str(i), p)
+                data_out_path = '{}/DHG2016_{}_{}_{}_data.npy'.format('output_dataset', str(i), v, p)
+                label_out_path = '{}/DHG2016_{}_{}_{}_label.pkl'.format('output_dataset', str(i), v, p)
+                gendata(data_path, label_path, data_out_path, label_out_path)
+    # for p in part:
+    #     data_path = '{}/SHREC_{}'.format('JSON_data', p)
+    #     label_path = '{}/SHREC_{}_label.json'.format('JSON_data', p)
+    #     data_out_path = '{}/{}_data.npy'.format('output_dataset', p)
+    #     label_out_path = '{}/{}_label.pkl'.format('output_dataset', p)
+    #     gendata(data_path, label_path, data_out_path, label_out_path)
     # for p in part:
     #     data_path = '{}/mediapipe_{}'.format('JSON_data', p)
     #     label_path = '{}/mediapipe_{}_label.json'.format('JSON_data', p)
